@@ -16,6 +16,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +38,7 @@ public class Player extends Creature {
 		bounds.height = 19;
                 
                 this.health = this.width;
+                this.setMaxHealth(health);
                 this.damage = 1;
 		
 		//Animatons
@@ -51,8 +55,12 @@ public class Player extends Creature {
 		animUp.tick();
 		animRight.tick();
 		animLeft.tick();
-		//Movement
-		getInput();
+            try {
+                //Movement
+                getInput();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		move();
 		handler.getGameCamera().centerOnEntity(this);
                 if(this.getHealth() == 0){
@@ -62,7 +70,7 @@ public class Player extends Creature {
                 }
 	}
 	
-	private void getInput(){
+	private void getInput() throws InterruptedException{
 		xMove = 0;
 		yMove = 0;
 		EntityManager em = new EntityManager(handler, this);
@@ -75,6 +83,10 @@ public class Player extends Creature {
 			xMove = -speed;
 		if(handler.getKeyManager().right)
 			xMove = speed;
+                if(handler.getKeyManager().esc) {
+                    handler.getGame().thread.join(100);
+                    State.paused = true;
+                }
          /*       if(handler.getKeyManager().atk)
                     if(this.getX() == ents.get(0).getX() && this.getY() == ents.get(0).getY())
                         this.setHealth((int) (this.getHealth() - this.damage)); */

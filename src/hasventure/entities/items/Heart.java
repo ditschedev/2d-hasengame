@@ -22,13 +22,15 @@ public class Heart extends ItemEntity {
         
         private float hx;
         private float hy;
-    
+        private boolean isUsed;
+        
 	public Heart(Handler handler, float x, float y) {
 		super(handler, x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT);
 		updown = new Animation(183, Assets.heart);
                 
                 this.hx = x;
                 this.hy = y;
+                isUsed = false;
                 
 		bounds.x = 0;
 		bounds.y = 0;
@@ -43,6 +45,8 @@ public class Heart extends ItemEntity {
         
 	@Override
 	public void render(Graphics g) {
+                if(isUsed)
+                    return;
 		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 	}
         
@@ -65,4 +69,18 @@ public class Heart extends ItemEntity {
         public void setY(float hy) {
             this.hy = hy;
         }
+        
+        public int getHeal(){
+            return heal;
+        }
+        
+        public boolean isUsed(){
+            return isUsed;
+        }
+        
+    @Override
+        public void setUsed(boolean used){
+            this.isUsed = used;
+        }
+        
 }

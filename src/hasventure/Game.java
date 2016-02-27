@@ -11,7 +11,9 @@ import hasventure.gfx.GameCamera;
 import hasventure.input.KeyManager;
 import hasventure.input.MouseManager;
 import hasventure.states.GameState;
+import hasventure.states.IntroState;
 import hasventure.states.MenuState;
+import hasventure.states.PauseState;
 import hasventure.states.State;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -27,7 +29,7 @@ public class Game implements Runnable {
 	public String title;
 	
 	private boolean running = false;
-	private Thread thread;
+	public Thread thread;
         private long timer;
 	
 	private BufferStrategy bs;
@@ -36,6 +38,8 @@ public class Game implements Runnable {
 	//States
 	public State gameState;
 	public State menuState;
+        public State introState;
+        public State pauseState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -69,13 +73,17 @@ public class Game implements Runnable {
 		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
-		State.setState(menuState);
+                introState = new IntroState(handler);
+                pauseState = new PauseState(handler);
+		State.setState(introState);
 	}
 	
 	private void tick(){
 		keyManager.tick();
 		
-		if(State.getState() != null)
+                if(State.paused) {
+                    pauseState.tick();
+		} else if(State.getState() != null)
 			State.getState().tick();
 	}
 	
@@ -90,7 +98,9 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 		//Draw Here!
 		
-		if(State.getState() != null)
+                if(State.paused) {
+			pauseState.render(g);
+		} else if(State.getState() != null)
 			State.getState().render(g);
 		
 		//End Drawing!

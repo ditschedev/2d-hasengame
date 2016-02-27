@@ -15,6 +15,7 @@ import java.awt.Graphics;
 public abstract class State {
 
 	private static State currentState = null;
+        public static boolean paused=false;
 	
 	public static void setState(State state){
 		currentState = state;
@@ -36,4 +37,8 @@ public abstract class State {
 	
 	public abstract void render(Graphics g);
 	
+        public static void setPaused(boolean paused){
+            State.paused = paused;
+        }
+        
 }

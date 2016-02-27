@@ -6,39 +6,63 @@
 package hasventure.states;
 
 import hasventure.Handler;
+import hasventure.gfx.FontReader;
+import hasventure.gfx.ImageLoader;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Tobias
  */
 public class MenuState extends State {
-
+        
+        private Font f;
+        
+        private int alpha, alphatext;
+        private int ticks;
+	
+        private final int FADE_IN = 80;
+        
 	public MenuState(Handler handler){
 		super(handler);
 	}
 
 	@Override
 	public void tick() {
-		if(handler.getMouseManager().isLeftPressed() && handler.getMouseManager().getMouseX() >= 600 && handler.getMouseManager().getMouseX() <= 800 && handler.getMouseManager().getMouseY() >= 600 && handler.getMouseManager().getMouseY() <= 660)
+		if(handler.getMouseManager().isLeftPressed())
 			State.setState(handler.getGame().gameState);
+                ticks++;
+		if(ticks < FADE_IN) {
+			alpha = (int) (255 - 255 * (1.0 * ticks / FADE_IN));
+                        alphatext = (int) (255 - 255 * (1.0 * ticks / FADE_IN));
+			if(alpha < 0) alpha = 0;
+                        if(alphatext < 0) alphatext = 0;
+		}
 	}
 
 	@Override
 	public void render(Graphics g) {
-	//	g.setColor(Color.RED);
-	//	g.fillRect(handler.getMouseManager().getMouseX(), handler.getMouseManager().getMouseY(), 8, 8);
-                Font f = new Font("Avenir", Font.PLAIN, 54);
-                g.setFont(f);
-                g.drawString("HASVENTURE 2.0", 140, 100);
-                g.setColor(Color.BLACK);
-                g.fillRoundRect(600, 600, 200, 60, 3, 3);
-                f = new Font("Verdana", Font.BOLD, 20);
-                g.setFont(f);
-                g.setColor(Color.WHITE);
-                g.drawString("START GAME", 625, 640);
+            
+            BufferedImage logo = ImageLoader.loadImage("/textures/menu/logo.png");
+            BufferedImage text = ImageLoader.loadImage("/textures/menu/startit.png");
+            BufferedImage text_green = ImageLoader.loadImage("/textures/menu/startit-green.png");
+            
+            g.drawImage(logo, (handler.getWidth() - 380)/2, (int) ((handler.getHeight()-90) / 2), 380, 90, null);
+            
+            g.drawImage(text, (int) ((handler.getWidth() - (380/1.3))/2), (int) ((handler.getHeight()-90) / 1.7), (int) (380/1.3), (int) (90/1.3), null);
+            g.drawImage(text_green, (int) ((handler.getWidth() - (380/1.3))/2), (int) ((handler.getHeight()-90) / 1.7), (int) (380/1.3), (int) (90/1.3), null);
+            
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fillRect(0, 0, handler.getWidth(),handler.getHeight());
 	}
 	
 }

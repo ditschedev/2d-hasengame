@@ -40,7 +40,7 @@ public class World {
 		// Temporary entity code!
 		//entityManager.addEntity(new Tree(handler, 100, 250));
                 Enemy badguy = new Enemy(handler, 100, 680);
-                Heart h = new Heart(handler, 100, 250);
+                Heart h = new Heart(handler, 600, 850);
                 entityManager.addEntity(badguy);
                 entityManager.addEntity(h);
                 dmgManager = new DamageManager(handler, player, badguy);

@@ -14,9 +14,18 @@ import hasventure.entities.Entity;
  */
 
 public abstract class ItemEntity extends Entity {
-	
+    
+	public final int HEAL_AMOUNT = 18; 
+        
+        protected int heal; 
+        protected boolean isUsed;
+        
 	public ItemEntity(Handler handler, float x, float y, int width, int height){
 		super(handler, x, y, width, height);
+                heal = HEAL_AMOUNT;
+                isUsed = false;
 	}
+        
+        public abstract void setUsed(boolean used);
 
 }

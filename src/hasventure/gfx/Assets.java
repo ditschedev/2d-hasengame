@@ -18,10 +18,11 @@ public class Assets {
 	public static BufferedImage dirt, grass, stone, tree, rock, chest, ladder, brick;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
-        public static BufferedImage[] heart;
+        public static BufferedImage[] heart, sparks;
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		SpriteSheet heartsheet = new SpriteSheet(ImageLoader.loadImage("/textures/hearts.png"));
+                SpriteSheet sparksheet = new SpriteSheet(ImageLoader.loadImage("/textures/sparkle.gif"));
                 
 		player_down = new BufferedImage[2];
 		player_up = new BufferedImage[2];
@@ -57,6 +58,13 @@ public class Assets {
 		heart[1] = heartsheet.crop(width, 0, width, height);
                 heart[2] = heartsheet.crop(width * 2, 0, width, height);
                 heart[3] = heartsheet.crop(width * 3, 0, width, height);
+                
+                sparks = new BufferedImage[4];
+                
+                sparks[0] = sparksheet.crop(0, 0, 16, 16);
+		sparks[1] = sparksheet.crop(16, 0, 16, 16);
+                sparks[2] = sparksheet.crop(16 * 2, 0, 16, 16);
+                sparks[3] = sparksheet.crop(16 * 3, 0, 16, 16);
                 
 		dirt = sheet.crop(width, 0, width, height);
 		grass = sheet.crop(0, height * 5, width, height);

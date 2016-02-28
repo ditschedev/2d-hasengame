@@ -7,6 +7,7 @@ package hasventure.states;
 
 import hasventure.Handler;
 import hasventure.worlds.World;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -17,10 +18,12 @@ public class GameState extends State {
 	
 	private World world;
         private PauseState menu;
+      //  private int lvl;
 	
 	public GameState(Handler handler){
 		super(handler);
-		world = new World(handler, "res/worlds/underground/1.lvl");
+                this.lvl = 1;
+		world = new World(handler, "res/worlds/underground/" + lvl + ".lvl");
                 menu = new PauseState(handler);
 		handler.setWorld(world);
 	}
@@ -42,5 +45,13 @@ public class GameState extends State {
                     menu.render(g);
                 }
 	}
+        
+        public int getLvl() {
+            return lvl;
+        }
+
+        public void setLvl(int lvl) {
+            GameState.lvl = lvl;
+        }
 
 }

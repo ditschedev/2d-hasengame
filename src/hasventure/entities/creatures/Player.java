@@ -87,16 +87,18 @@ public class Player extends Creature {
                     handler.getGame().thread.join(100);
                     State.paused = true;
                 }
+                if(handler.getKeyManager().j){
+                }
          /*       if(handler.getKeyManager().atk)
                     if(this.getX() == ents.get(0).getX() && this.getY() == ents.get(0).getY())
                         this.setHealth((int) (this.getHealth() - this.damage)); */
 	}
-
+                
 	@Override 
 	public void render(Graphics g) {
 		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-		g.setColor(Color.green);
-                g.fillRect((int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), this.getHealth(), 8);
+		//g.setColor(Color.green);
+                //g.fillRect((int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), this.getHealth(), 8);
 //		g.setColor(Color.red);
 //		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
 //				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),

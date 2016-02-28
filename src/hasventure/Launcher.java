@@ -12,7 +12,7 @@ package hasventure;
 public class Launcher {
 
 	public static void main(String[] args){
-		Game game = new Game("Hasventure!", 940, 780);
+		Game game = new Game("Hasventure!", 256*2, 256*2);
 		game.start();
 	}
 	

@@ -16,6 +16,7 @@ public abstract class State {
 
 	private static State currentState = null;
         public static boolean paused=false;
+        public static int lvl;
 	
 	public static void setState(State state){
 		currentState = state;

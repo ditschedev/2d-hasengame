@@ -25,20 +25,25 @@ public class Assets {
 		SpriteSheet heartsheet = new SpriteSheet(ImageLoader.loadImage("/textures/hearts.png"));
                 SpriteSheet sparksheet = new SpriteSheet(ImageLoader.loadImage("/textures/sparkle.gif"));
                 SpriteSheet itemsheet = new SpriteSheet(ImageLoader.loadImage("/textures/items.png"));
+                SpriteSheet player = new SpriteSheet(ImageLoader.loadImage("/textures/player/player.png"));
                 
-		player_down = new BufferedImage[2];
-		player_up = new BufferedImage[2];
-		player_left = new BufferedImage[2];
-		player_right = new BufferedImage[2];
+		player_down = new BufferedImage[3];
+		player_up = new BufferedImage[3];
+		player_left = new BufferedImage[3];
+		player_right = new BufferedImage[3];
 		
-		player_down[0] = sheet.crop(width * 4, 0, width, height);
-		player_down[1] = sheet.crop(width * 5, 0, width, height);
-		player_up[0] = sheet.crop(width * 6, 0, width, height);
-		player_up[1] = sheet.crop(width * 7, 0, width, height);
-		player_right[0] = sheet.crop(width * 4, height, width, height);
-		player_right[1] = sheet.crop(width * 5, height, width, height);
-		player_left[0] = sheet.crop(width * 6, height, width, height);
-		player_left[1] = sheet.crop(width * 7, height, width, height);
+		player_down[0] = player.crop(width*2, 0, width, height);
+		player_down[1] = player.crop(width*2, height, width, height);
+                player_down[2] = player.crop(width*2, height*2, width, height);
+		player_up[0] = player.crop(width *3, 0, width, height);
+		player_up[1] = player.crop(width*3, height, width, height);
+                player_up[2] = player.crop(width*3, height*2, width, height);
+		player_right[0] = player.crop(0, 0, width, height);
+		player_right[1] = player.crop(0, height, width, height);
+                player_right[2] = player.crop(0, height*2, width, height);
+		player_left[0] = player.crop(width, 0, width, height);
+		player_left[1] = player.crop(width, height, width, height);
+                player_left[2] = player.crop(width, height*2, width, height);
 		
 		zombie_down = new BufferedImage[2];
 		zombie_up = new BufferedImage[2];

@@ -42,10 +42,10 @@ public class Player extends Creature {
                 this.damage = 1;
 		
 		//Animatons
-		animDown = new Animation(500, Assets.player_down);
-		animUp = new Animation(500, Assets.player_up);
-		animLeft = new Animation(500, Assets.player_left);
-		animRight = new Animation(500, Assets.player_right);
+		animDown = new Animation(100, Assets.player_down);
+		animUp = new Animation(100, Assets.player_up);
+		animLeft = new Animation(100, Assets.player_left);
+		animRight = new Animation(100, Assets.player_right);
 	}
 
 	@Override

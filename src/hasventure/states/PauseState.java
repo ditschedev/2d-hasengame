@@ -6,6 +6,8 @@
 package hasventure.states;
 
 import hasventure.Handler;
+import hasventure.gfx.ImageLoader;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,25 +32,16 @@ public class PauseState extends State{
 
     @Override
     public void render(Graphics g) {
-        g.drawString("paused", 40, 30);
-		
-        g.drawString("arrow", 12, 76);
-        g.drawString("keys", 16, 84);
-        g.drawString(": move", 52, 80);
-
-        g.drawString("space", 12, 96);
-        g.drawString(": action", 52, 96);
-
-        g.drawString("F1:", 36, 112);
-        g.drawString("return", 68, 108);
-        g.drawString("to menu", 68, 116);
+        g.setColor(new Color(255,255,255,125));
+        g.fillRect(0, 0, 512, 512);
+        g.drawImage(ImageLoader.loadImage("/textures/menu/paused.png"), (512/2)-(128/2), (512/2)-20, 128, 40, null);
     }
     
     public void handleInput() throws InterruptedException {
         if(handler.getKeyManager().esc) {
                 if(State.paused){
-                    State.setPaused(false);
                     handler.getGame().thread.join(100);
+                    State.setPaused(false);
                 }
         }
     }

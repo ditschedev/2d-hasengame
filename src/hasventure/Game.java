@@ -17,6 +17,14 @@ import hasventure.states.PauseState;
 import hasventure.states.State;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import sun.applet.Main;
 
 /**
  *
@@ -57,7 +65,38 @@ public class Game implements Runnable {
 		this.title = title;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
+                playSound("/music/bgmusic.mp3");
 	}
+        
+        public static synchronized void playSound(final String url) {
+            new Thread(new Runnable() {
+            // The wrapper thread is unnecessary, unless it blocks on the
+            // Clip finishing; see comments.
+              @Override
+              public void run() {
+                try {
+                  Clip clip = AudioSystem.getClip();
+                  AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream(url));
+                  AudioFormat baseFormat = inputStream.getFormat();
+                  AudioFormat decodeFormat = new AudioFormat(
+				AudioFormat.Encoding.PCM_SIGNED,
+				baseFormat.getSampleRate(),
+				16,
+				baseFormat.getChannels(),
+				baseFormat.getChannels() * 2,
+				baseFormat.getSampleRate(),
+				false
+			);
+                  AudioInputStream dais = AudioSystem.getAudioInputStream(decodeFormat, inputStream);
+                  clip.open(dais);
+                  clip.loop(1000);
+                  clip.start(); 
+                } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+                  System.err.println(e.getMessage());
+                }
+              }
+            }).start();
+        }
 	
 	private void init(){
 		display = new Display(title, width, height);
@@ -98,9 +137,7 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width, height);
 		//Draw Here!
 		
-                if(State.paused) {
-			pauseState.render(g);
-		} else if(State.getState() != null)
+                if(State.getState() != null)
 			State.getState().render(g);
 		
 		//End Drawing!

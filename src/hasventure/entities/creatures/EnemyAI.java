@@ -35,9 +35,7 @@ public class EnemyAI {
     public void tick(){
             ticker++;
             if(pLocked){
-                if(!(pX <= (eX+120) || pX >= (eX-120) ))
-                    pLocked = false;
-                if(!(pY <= (eY+120) || pY >= (eY-120) ))
+                if(!(pX <= (eX+40) && pX >= (eX-40) || pY <= (eY+40) && pY >= (eY-40) ))
                     pLocked = false;
                 pX = player.getX();
                 pY = player.getY();
@@ -76,12 +74,10 @@ public class EnemyAI {
                 pY = player.getY();
                 eX = enemy.getX();
                 eY = enemy.getY();
-                if(!(pX <= (eX+120) || pX >= (eX-120) ))
-                    return;
-                if(!(pY <= (eY+120) || pY >= (eY-120) ))
-                    return;
+                if(!(pX <= (eX+40) && pX >= (eX-40) || pY <= (eY+40) && pY >= (eY-40)))
+                        return;
                 pLocked = true;
-                //System.out.println("Locked");
+                System.out.println("Locked");
                 ticker = 0;
             }
             

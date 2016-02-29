@@ -7,8 +7,13 @@ package hasventure.states;
 
 import hasventure.Handler;
 import hasventure.worlds.World;
-import java.awt.Color;
 import java.awt.Graphics;
+import java.io.FileInputStream;
+import java.io.IOException;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 /**
  *
@@ -27,7 +32,7 @@ public class GameState extends State {
                 menu = new PauseState(handler);
 		handler.setWorld(world);
 	}
-	
+        
 	@Override
 	public void tick() {
                 if(!paused) {
@@ -39,11 +44,9 @@ public class GameState extends State {
 
 	@Override
 	public void render(Graphics g) {
-                if(!paused) {
-                    world.render(g);
-                } else {
+                world.render(g);
+                if(paused)
                     menu.render(g);
-                }
 	}
         
         public int getLvl() {

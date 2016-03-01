@@ -6,6 +6,7 @@
 package hasventure.states;
 
 import hasventure.Handler;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -20,12 +21,16 @@ public class GameOverState extends State{
 
     @Override
     public void tick() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(handler.getMouseManager().isLeftPressed())
+			State.setState(handler.getGame().gameState);
     }
 
     @Override
     public void render(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        g.setColor(new Color(0,0,0,150));
+        g.fillRect(0, 0, handler.getWidth(), handler.getHeight());
+        g.setColor(Color.white);
+        g.drawString("GAME OVER", handler.getWidth()/2, handler.getHeight()/2);
     }
     
 }

@@ -12,6 +12,7 @@ import hasventure.entities.creatures.Enemy;
 import hasventure.entities.creatures.EnemyAI;
 import hasventure.entities.creatures.Player;
 import hasventure.entities.items.Heart;
+import hasventure.entities.items.Item;
 import hasventure.entities.items.ItemManager;
 import hasventure.gfx.Animation;
 import hasventure.gfx.Assets;
@@ -48,8 +49,10 @@ public class World {
 		entityManager = new EntityManager(handler, player);
 		// Temporary entity code!
 		//entityManager.addEntity(new Tree(handler, 100, 250));
-                Enemy badguy = new Enemy(handler, 100, 680);
-                Heart h = new Heart(handler, 600, 850);
+                Enemy badguy = new Enemy(handler, 100, 480);
+                Heart h = new Heart(handler, 420, 850);
+                Item sword = new Item(handler, 1, 100, 180, 32, 32);
+                //entityManager.addEntity(sword);
                 entityManager.addEntity(badguy);
                 entityManager.addEntity(h);
                 dmgManager = new DamageManager(handler, player, badguy);

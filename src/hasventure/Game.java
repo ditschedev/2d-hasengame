@@ -10,6 +10,7 @@ import hasventure.gfx.Assets;
 import hasventure.gfx.GameCamera;
 import hasventure.input.KeyManager;
 import hasventure.input.MouseManager;
+import hasventure.states.GameOverState;
 import hasventure.states.GameState;
 import hasventure.states.IntroState;
 import hasventure.states.MenuState;
@@ -24,7 +25,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import sun.applet.Main;
 
 /**
  *
@@ -48,6 +48,7 @@ public class Game implements Runnable {
 	public State menuState;
         public State introState;
         public State pauseState;
+        public State gameOver;
 	
 	//Input
 	private KeyManager keyManager;
@@ -76,7 +77,7 @@ public class Game implements Runnable {
               public void run() {
                 try {
                   Clip clip = AudioSystem.getClip();
-                  AudioInputStream inputStream = AudioSystem.getAudioInputStream(Main.class.getResourceAsStream(url));
+                  AudioInputStream inputStream = AudioSystem.getAudioInputStream(Game.class.getResourceAsStream(url));
                   AudioFormat baseFormat = inputStream.getFormat();
                   AudioFormat decodeFormat = new AudioFormat(
 				AudioFormat.Encoding.PCM_SIGNED,
@@ -114,6 +115,7 @@ public class Game implements Runnable {
 		menuState = new MenuState(handler);
                 introState = new IntroState(handler);
                 pauseState = new PauseState(handler);
+                gameOver = new GameOverState(handler);
 		State.setState(introState);
 	}
 	

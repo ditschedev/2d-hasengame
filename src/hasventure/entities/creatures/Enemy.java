@@ -37,7 +37,7 @@ public class Enemy extends Creature {
                 
 		this.health = this.width;
                 this.speed = 2.8f;
-                this.damage = 4;
+                this.damage = 10;
 		//Animatons
 		animDown = new Animation(500, Assets.zombie_down);
 		animUp = new Animation(500, Assets.zombie_up);

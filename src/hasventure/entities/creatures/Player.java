@@ -63,10 +63,10 @@ public class Player extends Creature {
             }
 		move();
 		handler.getGameCamera().centerOnEntity(this);
-                if(this.getHealth() == 0){
+                if(this.getHealth() <= 0){
                     System.out.println("DEAD");
-                    State.setState(handler.getGame().menuState);
-
+                    State.setState(handler.getGame().gameOver);
+                    this.setHealth(this.MAX_HEALTH);
                 }
 	}
 	

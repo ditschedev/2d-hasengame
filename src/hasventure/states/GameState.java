@@ -6,10 +6,12 @@
 package hasventure.states;
 
 import hasventure.Handler;
+import hasventure.entities.creatures.Enemy;
 import hasventure.worlds.World;
 import java.awt.Graphics;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import sun.audio.AudioData;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -25,9 +27,9 @@ public class GameState extends State {
         private PauseState menu;
       //  private int lvl;
 	
-	public GameState(Handler handler){
+	public GameState(Handler handler, int lvl){
 		super(handler);
-                this.lvl = 1;
+                this.lvl = lvl;
 		world = new World(handler, "res/worlds/underground/" + lvl + ".lvl");
                 menu = new PauseState(handler);
 		handler.setWorld(world);

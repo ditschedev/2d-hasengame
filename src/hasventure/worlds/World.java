@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,26 +44,57 @@ public class World {
         private ItemManager itemManager;
         private Player player;
         
+        private ArrayList<Enemy> enemies;
+        
 	public World(Handler handler, String path){
 		this.handler = handler;
+                
+                enemies = new ArrayList<Enemy>();
+                
                 player = new Player(handler, 100, 100);
 		entityManager = new EntityManager(handler, player);
-		// Temporary entity code!
-		//entityManager.addEntity(new Tree(handler, 100, 250));
-                Enemy badguy = new Enemy(handler, 100, 480);
+                
+                addEnemys();
+                putToEntities();
+                addDamages();
+                setAI();
+                
                 Heart h = new Heart(handler, 420, 850);
                 Item sword = new Item(handler, 1, 100, 180, 32, 32);
-                //entityManager.addEntity(sword);
-                entityManager.addEntity(badguy);
+                entityManager.addEntity(sword);
                 entityManager.addEntity(h);
-                dmgManager = new DamageManager(handler, player, badguy);
-                enemyAI = new EnemyAI(handler, player, badguy);
                 itemManager = new ItemManager(handler, h, player);
 		loadWorld(path);
 		
 		entityManager.getPlayer().setX(spawnX);
 		entityManager.getPlayer().setY(spawnY);
 	}
+        
+        private void addEnemys(){
+                Enemy e;
+                e = new Enemy(handler, 100, 480);
+                enemies.add(e);
+                e = new Enemy(handler, 150, 480);
+                enemies.add(e);
+        }
+        
+        private void putToEntities(){
+                for (int i = 0; i < enemies.size(); i++) {
+                    entityManager.addEntity(enemies.get(i));
+                }
+        }
+        
+        private void addDamages(){
+                for (int i = 0; i < enemies.size(); i++) {
+                    dmgManager = new DamageManager(handler, player, enemies.get(i));
+                }
+        }
+        
+        private void setAI(){
+                for (int i = 0; i < enemies.size(); i++) {
+                    enemyAI = new EnemyAI(handler, player, enemies.get(i));
+                }
+        }
 	
 	public void tick(){
 		entityManager.tick();

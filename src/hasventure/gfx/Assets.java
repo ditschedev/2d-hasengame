@@ -15,7 +15,10 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage dirt, grass, stone, tree, rock, chest, ladder, brick;
+	public static BufferedImage dirt, grass, stone, tree, rock, chest, ladder, brick, PLAYER_STAY_UP
+                                    ,PLAYER_STAY_DOWN
+                                    , PLAYER_STAY_LEFT
+                                    , PLAYER_STAY_RIGHT;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
         public static BufferedImage[] heart, sparks;
@@ -33,15 +36,19 @@ public class Assets {
 		player_right = new BufferedImage[3];
 		
 		player_down[0] = player.crop(width*2, 0, width, height);
+                PLAYER_STAY_UP = player.crop(width*2, 0, width, height);
 		player_down[1] = player.crop(width*2, height, width, height);
                 player_down[2] = player.crop(width*2, height*2, width, height);
 		player_up[0] = player.crop(width *3, 0, width, height);
+                PLAYER_STAY_DOWN = player.crop(width *3, 0, width, height);
 		player_up[1] = player.crop(width*3, height, width, height);
                 player_up[2] = player.crop(width*3, height*2, width, height);
 		player_right[0] = player.crop(0, 0, width, height);
+                PLAYER_STAY_RIGHT = player.crop(0, 0, width, height);
 		player_right[1] = player.crop(0, height, width, height);
                 player_right[2] = player.crop(0, height*2, width, height);
 		player_left[0] = player.crop(width, 0, width, height);
+                PLAYER_STAY_LEFT = player.crop(width, 0, width, height);
 		player_left[1] = player.crop(width, height, width, height);
                 player_left[2] = player.crop(width, height*2, width, height);
 		

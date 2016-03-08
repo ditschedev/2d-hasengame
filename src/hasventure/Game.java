@@ -45,6 +45,8 @@ public class Game implements Runnable {
 	
 	//States
 	public State gameState;
+        private int level = 2;
+        
 	public State menuState;
         public State introState;
         public State pauseState;
@@ -111,7 +113,7 @@ public class Game implements Runnable {
 		handler = new Handler(this);
 		gameCamera = new GameCamera(handler, 0, 0);
 		
-		gameState = new GameState(handler);
+		gameState = new GameState(handler, this.level);
 		menuState = new MenuState(handler);
                 introState = new IntroState(handler);
                 pauseState = new PauseState(handler);
@@ -121,12 +123,18 @@ public class Game implements Runnable {
 	
 	private void tick(){
 		keyManager.tick();
-		
+		checkKey();
                 if(State.paused) {
                     pauseState.tick();
 		} else if(State.getState() != null)
 			State.getState().tick();
 	}
+        
+        private void checkKey(){
+            if(this.keyManager.j){
+                this.level = 2;
+            }
+        }
 	
 	private void render(){
 		bs = display.getCanvas().getBufferStrategy();

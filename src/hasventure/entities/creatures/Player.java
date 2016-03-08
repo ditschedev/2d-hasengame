@@ -28,6 +28,8 @@ public class Player extends Creature {
 	
 	//Animations
 	private Animation animDown, animUp, animLeft, animRight;
+        
+        private boolean isUp, isDown, isRight, isLeft;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -71,18 +73,27 @@ public class Player extends Creature {
 	}
 	
 	private void getInput() throws InterruptedException{
+                isUp = false;
+                isDown = false;
+                isRight = false;
+                isLeft = false;
+                
 		xMove = 0;
 		yMove = 0;
 		EntityManager em = new EntityManager(handler, this);
                 ArrayList<Entity> ents = em.getEntities();
 		if(handler.getKeyManager().up)
 			yMove = -speed;
+                        isUp = true;
 		if(handler.getKeyManager().down)
 			yMove = speed;
+                        isDown = true;
 		if(handler.getKeyManager().left)
 			xMove = -speed;
+                        isLeft = true;
 		if(handler.getKeyManager().right)
 			xMove = speed;
+                        isRight = true;
                 if(handler.getKeyManager().esc) {
                     handler.getGame().thread.join(100);
                     State.paused = true;
@@ -112,9 +123,19 @@ public class Player extends Creature {
 			return animRight.getCurrentFrame();
 		}else if(yMove < 0){
 			return animUp.getCurrentFrame();
-		}else{
+		}else if(yMove > 0){
 			return animDown.getCurrentFrame();
-		}
+		} else {
+                    if(isUp)
+                        return Assets.PLAYER_STAY_UP;
+                    if(isDown)
+                        return Assets.PLAYER_STAY_DOWN;
+                    if(isLeft)
+                        return Assets.PLAYER_STAY_LEFT;
+                    if(isRight)
+                        return Assets.PLAYER_STAY_RIGHT;
+                    return null;   
+                }
 	}
 
 }
